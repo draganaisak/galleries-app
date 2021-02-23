@@ -6,6 +6,11 @@ class GalleriesService extends BaseService
         const { data } = await this.http.post('/galleries', gallery);
         return data;
     }
+
+    async getGalleries() {
+        const { data } = await this.http.get('/galleries');
+        return data;
+    }
 }
 
 export default new GalleriesService();
