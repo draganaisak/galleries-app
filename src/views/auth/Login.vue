@@ -1,16 +1,17 @@
 <template>
-    <div>
+    <div class="form-container">
         <h2>Login</h2>
+        <br>
         <form @submit.prevent="onLogin">
-            <div class="mb-3 form-field">
+            <div class="mb-3 form-group">
                 <label for="email">Email</label>
-                <input v-model="credentials.email" type="email" name="email" id="email">
+                <input v-model="credentials.email" type="email" name="email" id="email" class="form-control">
             </div>
-            <div class="mb-3 form-field">
+            <div class="mb-3 form-group">
                 <label for="password">Password</label>
-                <input v-model="credentials.password" type="password" name="password" id="password">
+                <input v-model="credentials.password" type="password" name="password" id="password" class="form-control">
             </div>
-            <button type="submit">Log In</button>
+            <button type="submit" class="btn btn-primary">Log In</button>
         </form>
     </div>
 </template>
@@ -40,8 +41,8 @@ export default {
 </script>
 
 <style>
-    .form-field {
-        width: 50%;
+    .form-container {
+        width: 400px;
         margin: 0 auto;
     }
 </style>
