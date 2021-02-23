@@ -1,8 +1,10 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
 import Register from '../views/auth/Register.vue';
 import Login from '../views/auth/Login.vue';
+import AllGalleries from "../views/galleries/AllGalleries";
+import MyGalleries from "../views/galleries/MyGalleries";
+import CreateGallery from "../views/galleries/CreateGallery";
 import { globalAuthGuard } from "../guards/authGuard";
 
 Vue.use(VueRouter)
@@ -10,8 +12,8 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'AllGalleries',
+    component: AllGalleries
   },
   {
     path: '/register',
@@ -24,6 +26,18 @@ const routes = [
     name: 'Login',
     component: Login,
     meta: { guestRequired: true },
+  },
+  {
+    path: '/my-galleries',
+    name: 'MyGalleries',
+    component: MyGalleries,
+    meta: { authRequired: true },
+  },
+  {
+    path: '/create',
+    name: 'Create',
+    component: CreateGallery,
+    meta: { authRequired: true },
   },
 ]
 

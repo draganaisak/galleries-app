@@ -1,5 +1,11 @@
 <template>
     <div id="layout">
+        <router-link to="/" class="layout-item">All Galleries</router-link>
+        <div class="layout-item" v-if="isAuthenticated">
+            <router-link to="/my-galleries">My Galleries</router-link> |
+            <router-link to="/create">Create New Gallery</router-link>
+        </div>
+        <h1 class="layout-item">Gallery</h1>
         <div class="layout-item nav">
             <template v-if="!isAuthenticated">
                 <router-link to="/login">Login</router-link> |
