@@ -1,8 +1,9 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import Register from '../views/auth/Register.vue'
-import Login from '../views/auth/Login.vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Home from '../views/Home.vue';
+import Register from '../views/auth/Register.vue';
+import Login from '../views/auth/Login.vue';
+import { globalAuthGuard } from "../guards/authGuard";
 
 Vue.use(VueRouter)
 
@@ -15,12 +16,14 @@ const routes = [
   {
     path: '/register',
     name: 'Register',
-    component: Register
+    component: Register,
+    meta: { guestRequired: true },
   },
   {
     path: '/login',
     name: 'Login',
-    component: Login
+    component: Login,
+    meta: { guestRequired: true },
   },
 ]
 
@@ -30,4 +33,5 @@ const router = new VueRouter({
   routes
 })
 
+router.beforeEach(globalAuthGuard);
 export default router
