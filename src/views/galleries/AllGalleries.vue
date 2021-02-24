@@ -4,7 +4,7 @@
             <router-link :to="`/galleries/${gallery.id}`">{{ gallery.name }}</router-link>
             <img :src="gallery.images[0].url" alt="photo">
             <router-link :to="`/authors/${gallery.user_id}`">{{ gallery.user.first_name }} {{ gallery.user.last_name }}</router-link>
-            <p>{{ gallery.created_at}}</p>
+            <p>{{ gallery.created_at | formatDate }}</p>
         </div>
     </div>
 </template>
@@ -28,7 +28,7 @@
 <style scoped>
     .container {
         margin: 0 auto;
-        display: flex;
+        /*display: flex;*/
         flex-wrap: wrap;
     }
     .card {
