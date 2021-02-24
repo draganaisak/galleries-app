@@ -37,7 +37,7 @@
                     Move Down
                 </button>
             </div>
-            <button @click="addUrl">Add another URL</button>
+            <button type="button" @click="addUrl">Add another URL</button>
             <br>
             <button type="submit" class="btn btn-primary">Submit</button>
             <router-link to="/">Cancel</router-link>
