@@ -4,9 +4,9 @@ import Register from '../views/auth/Register.vue';
 import Login from '../views/auth/Login.vue';
 import AllGalleries from "../views/galleries/AllGalleries";
 import MyGalleries from "../views/galleries/MyGalleries";
-import CreateGallery from "../views/galleries/CreateGallery";
+import CreateNewGallery from "../views/galleries/CreateNewGallery";
 import AuthorsGalleries from "../views/galleries/AuthorsGalleries";
-import Gallery from "../views/galleries/Gallery";
+import ViewGallery from "../views/galleries/ViewGallery";
 import { globalAuthGuard } from "../guards/authGuard";
 
 Vue.use(VueRouter)
@@ -31,8 +31,8 @@ const routes = [
   },
   {
     path: '/create',
-    name: 'Create',
-    component: CreateGallery,
+    name: 'CreateNewGallery',
+    component: CreateNewGallery,
     meta: { authRequired: true },
   },
   {
@@ -43,8 +43,14 @@ const routes = [
   },
   {
     path: '/galleries/:id',
-    name: 'Gallery',
-    component: Gallery,
+    name: 'ViewGallery',
+    component: ViewGallery,
+    meta: { authRequired: true },
+  },
+  {
+    path: '/edit-gallery/:id',
+    name: 'EditGallery',
+    component: CreateNewGallery,
     meta: { authRequired: true },
   },
   {
