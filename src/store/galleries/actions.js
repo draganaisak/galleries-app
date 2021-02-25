@@ -6,7 +6,24 @@ export const actions = {
     },
 
     async getGalleries(store) {
-        const galleries = await galleriesService.getGalleries();
-        store.commit('setGalleries', galleries)
+        const galleries = await galleriesService.getGalleries({page: 1});
+        console.log('vuex', store)
+        store.commit('setGalleries', galleries);
+    },
+
+    async getGalleryById(store, id) {
+        const gallery = await galleriesService.getGallery(id);
+        store.commit('setGallery', gallery);
+    },
+
+    async getMyGalleries(store) {
+        const myGalleries = await galleriesService.getMyGalleries();
+        store.commit('setMyGalleries', myGalleries);
+    },
+
+    async addMoreGalleries(store) {
+        const galleries = await galleriesService.getGalleries({page: store.state.galleries.current_page + 1});
+        console.log('vuex', store)
+        store.commit('addMoreGalleries', galleries);
     }
 }

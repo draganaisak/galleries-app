@@ -7,8 +7,18 @@ class GalleriesService extends BaseService
         return data;
     }
 
-    async getGalleries() {
-        const { data } = await this.http.get('/galleries');
+    async getGalleries(params) {
+        const { data } = await this.http.get('/galleries', {params});
+        return data;
+    }
+
+    async getGallery(id) {
+        const { data } = await this.http.get(`/galleries/${id}`)
+        return data;
+    }
+
+    async getMyGalleries() {
+        const { data } = await this.http.get('/my-galleries');
         return data;
     }
 }

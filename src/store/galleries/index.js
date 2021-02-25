@@ -9,7 +9,13 @@ Vue.use(Vuex);
 const store = {
     namespaced: true,
     state: {
-        galleries: [],
+        galleries: {
+            data: []
+        },
+        gallery: {},
+        myGalleries: {
+            data: []
+        }
     },
     mutations,
     actions,
