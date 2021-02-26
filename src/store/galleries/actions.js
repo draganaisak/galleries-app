@@ -28,8 +28,8 @@ export const actions = {
     },
 
     async editGallery(store, id, editedGallery) {
-        const gallery = await galleriesService.editGallery(id, editedGallery);
-        store.commit('setEditedGallery', gallery);
+        console.log('actions edit', editedGallery);
+        await galleriesService.editGallery(id, editedGallery);
     },
 
     deleteGallery(store, id) {

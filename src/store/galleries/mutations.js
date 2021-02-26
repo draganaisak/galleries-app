@@ -15,9 +15,5 @@ export const mutations = {
         state.galleries = {...state.galleries, ...newState, ...{
             data: state.galleries.data.concat(newState.data)
         }};
-    },
-
-    setEditedGallery(state, gallery) {
-        state.gallery = gallery;
     }
 }

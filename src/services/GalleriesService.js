@@ -23,6 +23,7 @@ class GalleriesService extends BaseService
     }
 
     async editGallery(id, gallery) {
+        console.log('service edit', id, gallery);
         const { data } = await this.http.put(`/galleries/${id}`, gallery);
         return data;
     }
