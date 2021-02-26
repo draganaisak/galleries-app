@@ -23,8 +23,7 @@
     export default {
         name: "all-galleries",
         computed: {
-            ...mapGetters('galleries', ['galleries']),
-            ...mapGetters('galleries', ['galleriesData'])
+            ...mapGetters('galleries', ['galleries', 'galleriesData']),
         },
         async created() {
             await store.dispatch('galleries/getGalleries');
@@ -41,13 +40,11 @@
 <style scoped>
     .container {
         margin: 0 auto;
-        /*display: flex;*/
         flex-wrap: wrap;
     }
     .card {
-        flex: 0 40%;
         box-sizing:border-box;
-        width: 18rem;
+        width: 50%;
         margin: 0 auto;
     }
     a {
