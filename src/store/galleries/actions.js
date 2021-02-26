@@ -25,5 +25,14 @@ export const actions = {
         const galleries = await galleriesService.getGalleries({page: store.state.galleries.current_page + 1});
         console.log('vuex', store)
         store.commit('addMoreGalleries', galleries);
+    },
+
+    async editGallery(store, id, editedGallery) {
+        const gallery = await galleriesService.editGallery(id, editedGallery);
+        store.commit('setEditedGallery', gallery);
+    },
+
+    deleteGallery(store, id) {
+        galleriesService.deleteGallery(id);
     }
 }
