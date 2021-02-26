@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <h1>{{ gallery.name }}</h1>
-        <router-link v-if="gallery.user" :to="`/author/${gallery.user_id}`">
+        <router-link v-if="gallery.user" :to="`/authors/${gallery.user_id}`">
             {{ gallery.user.first_name }} {{ gallery.user.last_name }}
         </router-link>
         <p>{{ gallery.created_at | formatDate }}</p>
