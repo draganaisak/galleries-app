@@ -32,7 +32,7 @@
 </template>
 
 <script>
-    import {mapActions, mapGetters} from "vuex";
+    import { mapActions, mapGetters } from "vuex";
     export default {
         name: 'view-gallery',
         data() {
@@ -58,9 +58,6 @@
                     this.currentItem = 0;
                 }
             },
-            ...mapActions('galleries', ['getGalleryById']),
-            ...mapActions('galleries', ['deleteGallery']),
-            ...mapActions('auth', ['getActiveUser']),
 
             deleteThisGallery(id) {
                 console.log(id);
@@ -70,11 +67,14 @@
                 } catch(e) {
                     console.log('Not deleted');
                 }
-            }
+            },
+            ...mapActions('galleries', ['getGalleryById']),
+            ...mapActions('galleries', ['deleteGallery']),
+            ...mapActions('auth', ['getActiveUser']),
         },
         created() {
             this.getGalleryById(this.id);
-            this.getActiveUser()
+            this.getActiveUser();
         },
     }
 
