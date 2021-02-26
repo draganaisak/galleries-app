@@ -14,12 +14,15 @@
                     </a>
                 </div>
             </div>
-            <a class="carousel-control-prev" role="button" data-slide="prev" @click="changeCurrentItem()">
-                <span class="carousel-control-prev-icon controls" aria-hidden="true"></span>
-            </a>
-            <a class="carousel-control-next" role="button" data-slide="next" @click="changeCurrentItem()">
-                <span class="carousel-control-next-icon controls" aria-hidden="true"></span>
-            </a>
+            <div v-if="gallery.images.length > 1">
+                <a class="carousel-control-prev" role="button" data-slide="prev" @click="changeCurrentItem()">
+                    <span class="carousel-control-prev-icon controls" aria-hidden="true"></span>
+                </a>
+                <a class="carousel-control-next" role="button" data-slide="next" @click="changeCurrentItem()">
+                    <span class="carousel-control-next-icon controls" aria-hidden="true"></span>
+                </a>
+            </div>
+
         </div>
         <div v-if="activeUser && gallery.user_id === activeUser.id">
             <button type="button" @click="deleteThisGallery(gallery.id)">Delete</button>
