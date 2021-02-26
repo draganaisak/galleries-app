@@ -27,20 +27,22 @@
                             v-model="url.url"
                             :name="`galleryData.images[${index}][url]`">
                 </div>
-                <button type="button" v-if="galleryData.images.length > 1" @click="removeUrl(index)">
-                    Remove
-                </button>
-                <button type="button" @click="moveUp(index)">
-                    Move Up
-                </button>
-                <button type="button" @click="moveDown(index)">
-                    Move Down
-                </button>
+                <div v-if="galleryData.images.length > 1">
+                    <button type="button" @click="removeUrl(index)">
+                        Remove
+                    </button>
+                    <button type="button" @click="moveUp(index)">
+                        Move Up
+                    </button>
+                    <button type="button" @click="moveDown(index)">
+                        Move Down
+                    </button>
+                </div>
+                
             </div>
             <button type="button" @click="addUrl">Add another URL</button>
             <br>
             <button type="submit" class="btn btn-primary">Submit</button>
-            <button type="button" class="btn btn-primary" @click="populateEditForm">Populate form</button>
             <router-link to="/">Cancel</router-link>
         </form>
     </div>
@@ -53,24 +55,28 @@
         data() {
             return {
                 galleryData: {
-                    'name': '',
-                    'description': '',
-                    'images': [
+                    name: '',
+                    description: '',
+                    images: [
                         {
                             url: ''
                         }
                     ]
-                }
+                },
+                idFromUrl: this.$route.params.id,
             }
         },
         computed: {
             ...mapGetters('galleries', ['gallery'])
         },
-        // watch: {
-        //     $route() {
-        //         this.populateEditForm();
-        //     }
-        // },
+        watch: {
+            gallery() {
+                console.log("gallery changed", this.gallery, this.galleryData);
+                if (this.gallery) {
+                    this.galleryData = {...this.gallery}
+                }
+            }
+        },
         methods: {
             addUrl() {
                 this.galleryData.images.push({
@@ -93,10 +99,10 @@
             },
             async onSubmit() {
                 console.log('component update', this.galleryData);
-                if(this.$route.params.id) {
+                if(this.idFromUrl) {
                     try {
-                        await this.editGallery(this.$route.params.id, this.galleryData);
-
+                        await this.editGallery({id: this.$route.params.id, editedGallery: this.galleryData});
+                        this.$router.push(`/galleries/${this.idFromUrl}`);
                     } catch(e) {
                         console.log(e);
                     }
@@ -104,24 +110,22 @@
                 } else {
                     try {
                         await this.createGallery(this.galleryData);
+                        this.$router.push('/my-galleries');
                     } catch(e) {
                         console.log(e);
                     }
                 }
 
-                this.$router.push('/my-galleries');
             },
             async populateEditForm() {
                 if(this.$route.params.id) {
-                    const galleryForEdit = await this.getGalleryById(this.$route.params.id);
-                    this.galleryData = galleryForEdit;
+                    await this.getGalleryById(this.$route.params.id);
+                    // this.galleryData = galleryForEdit;
                     console.log('populate form', this.galleryData);
                 }
             },
 
-            ...mapActions('galleries', ['createGallery']),
-            ...mapActions('galleries', ['getGalleryById']),
-            ...mapActions('galleries', ['editGallery'])
+            ...mapActions('galleries', ['createGallery', 'getGalleryById', 'editGallery']),
         },
         mounted() {
             this.populateEditForm();
