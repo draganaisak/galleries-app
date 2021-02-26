@@ -40,15 +40,16 @@
             <button type="button" @click="addUrl">Add another URL</button>
             <br>
             <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-primary" @click="populateEditForm">Populate form</button>
             <router-link to="/">Cancel</router-link>
         </form>
     </div>
 
 </template>
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapGetters } from 'vuex';
     export default {
-        name: "create-gallery",
+        name: "create-new-gallery",
         data() {
             return {
                 galleryData: {
@@ -62,6 +63,14 @@
                 }
             }
         },
+        computed: {
+            ...mapGetters('galleries', ['gallery'])
+        },
+        // watch: {
+        //     $route() {
+        //         this.populateEditForm();
+        //     }
+        // },
         methods: {
             addUrl() {
                 this.galleryData.images.push({
@@ -83,17 +92,40 @@
                 this.galleryData.images.splice(index + 1, 0, target)
             },
             async onSubmit() {
-                console.log(this.galleryData);
-                try {
-                    await this.createGallery(this.galleryData);
-                    this.$router.push('/my-galleries');
-                } catch(e) {
-                    console.log(e);
+                console.log('component update', this.galleryData);
+                if(this.$route.params.id) {
+                    try {
+                        await this.editGallery(this.$route.params.id, this.galleryData);
+
+                    } catch(e) {
+                        console.log(e);
+                    }
+
+                } else {
+                    try {
+                        await this.createGallery(this.galleryData);
+                    } catch(e) {
+                        console.log(e);
+                    }
+                }
+
+                this.$router.push('/my-galleries');
+            },
+            async populateEditForm() {
+                if(this.$route.params.id) {
+                    const galleryForEdit = await this.getGalleryById(this.$route.params.id);
+                    this.galleryData = galleryForEdit;
+                    console.log('populate form', this.galleryData);
                 }
             },
 
-            ...mapActions('galleries', ['createGallery'])
-        }
+            ...mapActions('galleries', ['createGallery']),
+            ...mapActions('galleries', ['getGalleryById']),
+            ...mapActions('galleries', ['editGallery'])
+        },
+        mounted() {
+            this.populateEditForm();
+        },
     }
 </script>
 
