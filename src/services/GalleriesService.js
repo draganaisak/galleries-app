@@ -21,6 +21,15 @@ class GalleriesService extends BaseService
         const { data } = await this.http.get('/my-galleries');
         return data;
     }
+
+    async editGallery(id, gallery) {
+        const { data } = await this.http.put(`/galleries/${id}`, gallery);
+        return data;
+    }
+
+    deleteGallery(id) {
+        this.http.delete(`/galleries/${id}`);
+    }
 }
 
 export default new GalleriesService();
