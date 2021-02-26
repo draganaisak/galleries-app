@@ -15,6 +15,9 @@ const store = {
         gallery: {},
         myGalleries: {
             data: []
+        },
+        authorsGalleries: {
+            data: []
         }
     },
     mutations,

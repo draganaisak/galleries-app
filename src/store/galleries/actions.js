@@ -21,13 +21,19 @@ export const actions = {
         store.commit('setMyGalleries', myGalleries);
     },
 
+    async getAuthorsGalleries(store, id) {
+        const authorsGalleries = await galleriesService.getAuthorsGalleries(id);
+        console.log('actions', authorsGalleries, id);
+        store.commit('setAuthorsGalleries', authorsGalleries);
+    },
+
     async addMoreGalleries(store) {
         const galleries = await galleriesService.getGalleries({page: store.state.galleries.current_page + 1});
         console.log('vuex', store)
         store.commit('addMoreGalleries', galleries);
     },
 
-    async editGallery(store, id, editedGallery) {
+    async editGallery(store, {id, editedGallery}) {
         console.log('actions edit', editedGallery);
         await galleriesService.editGallery(id, editedGallery);
     },
