@@ -11,6 +11,10 @@ export const mutations = {
         state.myGalleries = myGalleries;
     },
 
+    setAuthorsGalleries(state, authorsGalleries) {
+        state.authorsGalleries = authorsGalleries;
+    },
+
     addMoreGalleries(state, newState) {
         state.galleries = {...state.galleries, ...newState, ...{
             data: state.galleries.data.concat(newState.data)
