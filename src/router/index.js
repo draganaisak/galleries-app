@@ -44,8 +44,7 @@ const routes = [
   {
     path: '/galleries/:id',
     name: 'ViewGallery',
-    component: ViewGallery,
-    meta: { authRequired: true },
+    component: ViewGallery
   },
   {
     path: '/edit-gallery/:id',
