@@ -5,11 +5,11 @@
         <form @submit.prevent="onLogin">
             <div class="mb-3 form-group">
                 <label for="email">Email</label>
-                <input v-model="credentials.email" type="email" name="email" id="email" class="form-control">
+                <input v-model="credentials.email" type="email" name="email" id="email" class="form-control" required>
             </div>
             <div class="mb-3 form-group">
                 <label for="password">Password</label>
-                <input v-model="credentials.password" type="password" name="password" id="password" class="form-control">
+                <input v-model="credentials.password" type="password" name="password" id="password" class="form-control" required>
             </div>
             <button type="submit" class="btn btn-primary">Log In</button>
         </form>
@@ -31,8 +31,13 @@ export default {
     },
     methods: {
         async onLogin() {
-            await this.login(this.credentials);
-            this.$router.push('/');
+            try {
+                await this.login(this.credentials);
+                this.$router.push('/');
+            } catch (e) {
+                alert("Data is not valid. Please try again.")
+            }
+
         },
         ...mapActions('auth', ['login'])
     },
