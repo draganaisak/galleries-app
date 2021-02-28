@@ -15,5 +15,9 @@
 </script>
 
 <style scoped>
-
+    .card {
+        box-sizing:border-box;
+        width: 50%;
+        margin: 0 auto;
+    }
 </style>

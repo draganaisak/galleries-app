@@ -37,12 +37,4 @@
         margin: 0 auto;
         flex-wrap: wrap;
     }
-    .card {
-        box-sizing:border-box;
-        width: 50%;
-        margin: 0 auto;
-    }
-    a {
-        text-decoration: none;
-    }
 </style>
