@@ -47,7 +47,6 @@
         },
         methods: {
             nextItem() {
-                console.log(this.gallery.images);
                 if(this.currentItem < this.gallery.images.length - 1) {
                     this.currentItem += 1;
                 } else {
@@ -64,7 +63,6 @@
             },
 
             deleteThisGallery(id) {
-                console.log(id);
                 try {
                     this.deleteGallery(id);
                     this.$router.push('/my-galleries');

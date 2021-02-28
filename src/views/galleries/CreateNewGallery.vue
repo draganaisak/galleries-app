@@ -71,7 +71,6 @@
         },
         watch: {
             gallery() {
-                console.log("gallery changed", this.gallery, this.galleryData);
                 if (this.gallery) {
                     this.galleryData = {...this.gallery}
                 }
@@ -98,7 +97,6 @@
                 this.galleryData.images.splice(index + 1, 0, target)
             },
             async onSubmit() {
-                console.log('component update', this.galleryData);
                 if(this.idFromUrl) {
                     try {
                         await this.editGallery({id: this.$route.params.id, editedGallery: this.galleryData});
@@ -120,8 +118,6 @@
             async populateEditForm() {
                 if(this.$route.params.id) {
                     await this.getGalleryById(this.$route.params.id);
-                    // this.galleryData = galleryForEdit;
-                    console.log('populate form', this.galleryData);
                 }
             },
 

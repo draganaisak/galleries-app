@@ -24,12 +24,10 @@ class GalleriesService extends BaseService
 
     async getAuthorsGalleries(id) {
         const { data } = await this.http.get(`/authors-galleries/${id}`);
-        console.log('service', id, data);
         return data;
     }
 
     async editGallery(id, gallery) {
-        console.log('service edit', id, gallery);
         const { data } = await this.http.put(`/galleries/${id}`, gallery);
         return data;
     }
