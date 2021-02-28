@@ -2,12 +2,9 @@
 <template>
     <div class="container">
         <div v-if="galleriesData">
-            <div class="card mb-5" v-for="gallery in galleriesData" :key="gallery.id">
-                <router-link :to="`/galleries/${gallery.id}`">{{ gallery.name }}</router-link>
-                <img :src="gallery.images[0].url" alt="photo">
-                <router-link :to="`/authors/${gallery.user_id}`">{{ gallery.user.first_name }} {{ gallery.user.last_name }}</router-link>
-                <p>{{ gallery.created_at | formatDate }}</p>
-            </div>
+            <galleries-list :galleries="galleriesData"
+            >
+            </galleries-list>
             <button v-if="galleries.next_page_url" type="button" @click="loadMore">Load more</button>
         </div>
         <div v-else>
@@ -17,23 +14,26 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
-    import store from '../../store';
+    import { mapActions, mapGetters } from 'vuex';
+    import GalleriesList from "../../components/GalleriesList";
 
     export default {
         name: "all-galleries",
+        components: {
+            GalleriesList
+        },
         computed: {
             ...mapGetters('galleries', ['galleries', 'galleriesData']),
         },
-        async created() {
-            await store.dispatch('galleries/getGalleries');
-            console.log(this.galleries);
-        },
         methods: {
             async loadMore() {
-                await store.dispatch('galleries/addMoreGalleries');
-            }
-        }
+                await this.addMoreGalleries();
+            },
+            ...mapActions('galleries', ['getGalleries', 'addMoreGalleries'])
+        },
+        async created() {
+            await this.getGalleries();
+        },
     }
 </script>
 

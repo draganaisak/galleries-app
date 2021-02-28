@@ -1,26 +1,33 @@
 <template>
     <div class="container">
-        <div class="card mb-5" v-for="myGallery in myGalleries" :key="myGallery.id">
-            <router-link :to="`/galleries/${myGallery.id}`">{{ myGallery.name }}</router-link>
-            <img :src="myGallery.images[0].url" alt="photo">
-            <router-link :to="`/authors/${myGallery.user_id}`">{{ myGallery.user.first_name }} {{ myGallery.user.last_name }}</router-link>
-            <p>{{ myGallery.created_at | formatDate }}</p>
+        <div v-if="myGalleries">
+            <galleries-list :galleries="myGalleries"
+            >
+            </galleries-list>
+        </div>
+        <div v-else>
+            <p>There are no galleries.</p>
         </div>
     </div>
 </template>
 
 <script>
-    import {mapGetters} from "vuex";
-    import store from "../../store";
+    import { mapActions, mapGetters } from "vuex";
+    import GalleriesList from "../../components/GalleriesList";
 
     export default {
         name: "my-galleries",
+        components: {
+            GalleriesList
+        },
         computed: {
             ...mapGetters('galleries', ['myGalleries']),
         },
+        methods: {
+            ...mapActions('galleries', ['getMyGalleries']),
+        },
         async created() {
-            await store.dispatch('galleries/getMyGalleries');
-            console.log(this.galleries);
+            this.getMyGalleries();
         },
     }
 </script>

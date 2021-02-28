@@ -1,25 +1,27 @@
 <template>
     <div class="container">
-        <div class="card mb-5" v-for="authorsGallery in authorsGalleries" :key="authorsGallery.id">
-            <router-link :to="`/galleries/${authorsGallery.id}`">{{ authorsGallery.name }}</router-link>
-            <img :src="authorsGallery.images[0].url" alt="photo">
-            <p>{{ authorsGallery.user.first_name }} {{ authorsGallery.user.last_name }}</p>
-            <p>{{ authorsGallery.created_at | formatDate }}</p>
-        </div>
+        <galleries-list :galleries="authorsGalleries"
+        >
+        </galleries-list>
     </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import store from "../../store";
+import { mapActions, mapGetters } from 'vuex';
+import GalleriesList from "../../components/GalleriesList";
 export default {
     name: 'authors-galleries',
+    components: {
+        GalleriesList
+    },
     computed: {
         ...mapGetters('galleries', ['authorsGalleries']),
     },
+    methods: {
+        ...mapActions('galleries', ['getAuthorsGalleries']),
+    },
     async created() {
-        await store.dispatch('galleries/getAuthorsGalleries');
-        console.log(this.authorsGalleries);
+        this.getAuthorsGalleries(this.$route.params.id);
     },
 }
 </script>
