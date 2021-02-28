@@ -8,17 +8,17 @@
         <p>{{ gallery.description }}</p>
         <div id="images" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
-                <div class="carousel-item" v-for="(image, index) in gallery.images" :key="index" @click="setCurrentItem(index)" :class="{ 'active': index === currentItem }">
+                <div class="carousel-item" v-for="(image, index) in gallery.images" :key="index" :class="{ 'active': index === currentItem }">
                     <a :href="image.url" target="_blank">
                         <img :src="image.url" class="d-block w-50" alt="photo">
                     </a>
                 </div>
             </div>
             <div v-if="gallery.images.length > 1">
-                <a class="carousel-control-prev" role="button" data-slide="prev" @click="changeCurrentItem()">
+                <a class="carousel-control-prev" role="button" data-slide="prev" @click="prevItem">
                     <span class="carousel-control-prev-icon controls" aria-hidden="true"></span>
                 </a>
-                <a class="carousel-control-next" role="button" data-slide="next" @click="changeCurrentItem()">
+                <a class="carousel-control-next" role="button" data-slide="next" @click="nextItem">
                     <span class="carousel-control-next-icon controls" aria-hidden="true"></span>
                 </a>
             </div>
@@ -46,16 +46,20 @@
             ...mapGetters('auth', ['activeUser'])
         },
         methods: {
-            setCurrentItem(index) {
-                console.log(index);
-                this.currentItem = index;
+            nextItem() {
+                console.log(this.gallery.images);
+                if(this.currentItem < this.gallery.images.length - 1) {
+                    this.currentItem += 1;
+                } else {
+                    this.currentItem === 0;
+                }
             },
 
-            changeCurrentItem() {
-                if(this.currentItem < this.gallery.images.length && this.currentItem <= 0) {
-                    this.currentItem += 1;
-                } else if(this.currentItem < this.gallery.images.length) {
-                    this.currentItem = 0;
+            prevItem() {
+                if(this.currentItem > 0) {
+                    this.currentItem -= 1;
+                } else {
+                    this.currentItem === this.gallery.images.length;
                 }
             },
 
